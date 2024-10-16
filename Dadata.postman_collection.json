@@ -1,0 +1,1378 @@
+{
+	"info": {
+		"_postman_id": "8b73d51f-5a8f-48dd-a34b-34f01e1ba03b",
+		"name": "Dadata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "35027978"
+	},
+	"item": [
+		{
+			"name": "#1 Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response has correct structure\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"suggestions\");\r",
+							"    pm.expect(jsonData.suggestions[0]).to.have.property(\"value\");\r",
+							"    pm.expect(jsonData.suggestions[0]).to.have.property(\"data\");\r",
+							"});\r",
+							"pm.test(\"Name contains Alexey\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].value).to.include(\"Алексей\");\r",
+							"});\r",
+							"pm.test(\"Gender is female\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[2].data.gender).to.eql(\"FEMALE\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Gender is male\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data.gender).to.eql(\"MALE\");\r",
+							"});\r",
+							"pm.test(\"Gender is UNKNOWN\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[1].data.gender).to.eql(\"UNKNOWN\");\r",
+							"});\r",
+							"pm.test(\"Ответ содержит заголовок X-XSS-Protection\", function () {\r",
+							"pm.response.to.have.header(\"X-XSS-Protection\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"query\": \"Алексей\"\n}"
+				},
+				"url": "{{baseUrl}}fio"
+			},
+			"response": []
+		},
+		{
+			"name": "#2 Adress",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response has correct structure\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"suggestions\");\r",
+							"    pm.expect(jsonData.suggestions[0]).to.have.property(\"value\");\r",
+							"    pm.expect(jsonData.suggestions[0]).to.have.property(\"unrestricted_value\");\r",
+							"    pm.expect(jsonData.suggestions[0]).to.have.property(\"data\");\r",
+							"});\r",
+							"pm.test(\"Postal code is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data.postal_code).to.eql(\"168083\");\r",
+							"});\r",
+							"pm.test(\"Country is Russia\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data.country).to.eql(\"Россия\");\r",
+							"});\r",
+							"pm.test(\"Region code is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data.region_kladr_id).to.eql(\"1100000000000\");\r",
+							"});\r",
+							"pm.test(\"Region data is complete\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data).to.have.property(\"region_fias_id\");\r",
+							"    pm.expect(jsonData.suggestions[0].data).to.have.property(\"region_iso_code\");\r",
+							"    pm.expect(jsonData.suggestions[0].data).to.have.property(\"region_with_type\");\r",
+							"});\r",
+							"pm.test(\"Ответ содержит заголовок X-XSS-Protection\", function () {\r",
+							"pm.response.to.have.header(\"X-XSS-Protection\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"query\": \"вол 10\"\n}"
+				},
+				"url": "{{baseUrl}}address"
+			},
+			"response": []
+		},
+		{
+			"name": "#3 email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has correct structure\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"suggestions\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email suggestion contains expected email\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].value).to.include(\"alex@gmail.com\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Localized name is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data.local).to.eql(\"alex\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Domain name is correct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions[0].data.domain).to.eql(\"gmail.com\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"No errors in response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.be.undefined;\r",
+							"});\r",
+							"pm.test(\"Ответ содержит заголовок X-XSS-Protection\", function () {\r",
+							"pm.response.to.have.header(\"X-XSS-Protection\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"query\": \"alex@\"\n}"
+				},
+				"url": "{{baseUrl}}email"
+			},
+			"response": []
+		},
+		{
+			"name": "#4 Phone",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test Case 1: Validate Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test Case 2: Validate Response Structure\r",
+							"pm.test(\"Response structure is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.all.keys(\r",
+							"        \"source\", \"type\", \"phone\", \"country_code\", \"city_code\", \r",
+							"        \"number\", \"extension\", \"provider\", \"region\", \"city\", \r",
+							"        \"timezone\", \"qc_conflict\", \"qc\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Test Case 4: Validate Country Code\r",
+							"pm.test(\"Country code is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.country_code).to.eql(\"7\"); // Check for the expected country code\r",
+							"});\r",
+							"\r",
+							"// Test Case 5: Validate City Code\r",
+							"pm.test(\"City code is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.city_code).to.be.a('string').that.is.not.empty; // Ensure city code is a non-empty string\r",
+							"});\r",
+							"\r",
+							"// Test Case 6: Validate Provider Name\r",
+							"pm.test(\"Provider name is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.provider).to.be.a('string').that.is.not.empty; // Ensure provider name exists and is not empty\r",
+							"});\r",
+							"\r",
+							"// Test Case 7: Validate Region\r",
+							"pm.test(\"Region is present and valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.region).to.be.a('string').that.is.not.empty; // Check if region is a non-empty string\r",
+							"});\r",
+							"\r",
+							"// Test Case 8: Validate City\r",
+							"pm.test(\"City is present and valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.city).to.be.a('string').that.is.not.empty; // Ensure city name exists and is not empty\r",
+							"});\r",
+							"\r",
+							"// Test Case 9: Validate Timezone\r",
+							"pm.test(\"Timezone is correct\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.timezone).to.be.a('string').that.is.not.empty; // Ensure timezone is a non-empty string\r",
+							"});\r",
+							"\r",
+							"// Test Case 10: Validate QC Conflict Value\r",
+							"pm.test(\"QC conflict value is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.qc_conflict).to.be.a('number').that.is.at.least(0); // Ensure qc_conflict is a number and non-negative\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Secret",
+						"value": "{{S_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[ \"3024341\" ]"
+				},
+				"url": "https://cleaner.dadata.ru/api/v1/clean/phone"
+			},
+			"response": []
+		},
+		{
+			"name": "#5 Проверка email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test Case 1: Validate Status Code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Test Case 2: Validate Response Structure\r",
+							"pm.test(\"Response structure is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedKeys = [\r",
+							"        \"source\", \"email\", \"local\", \"domain\", \"type\", \"qc\"\r",
+							"    ];\r",
+							"    \r",
+							"    expectedKeys.forEach(key => {\r",
+							"        pm.expect(jsonData).to.have.property(key);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Test Case 3: Validate Email Format\r",
+							"pm.test(\"Email format is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/; // Regex for valid email format\r",
+							"    pm.expect(jsonData.email).to.match(emailRegex);\r",
+							"});\r",
+							"\r",
+							"// Test Case 4: Validate Local Part of Email\r",
+							"pm.test(\"Local part of email is not empty\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.local).to.be.a('string').that.is.not.empty; // Ensure local part is a non-empty string\r",
+							"});\r",
+							"\r",
+							"// Test Case 5: Validate Domain Part of Email\r",
+							"pm.test(\"Domain part of email is not empty\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.domain).to.be.a('string').that.is.not.empty; // Ensure domain part is a non-empty string\r",
+							"});\r",
+							"\r",
+							"// Test Case 6: Validate Type is Valid\r",
+							"pm.test(\"Type is valid\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const validTypes = [\"CORPORATE\", \"PERSONAL\"]; // Add any other valid types if necessary\r",
+							"    pm.expect(validTypes).to.include(jsonData.type); // Check if the type is one of the valid types\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Secret",
+						"value": "{{S_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[ \"polina@ontid/ru\" ]"
+				},
+				"url": "https://cleaner.dadata.ru/api/v1/clean/email"
+			},
+			"response": []
+		},
+		{
+			"name": "#6 ИНН",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тест 1: Проверка кода статуса\r",
+							"pm.test(\"Статус кода 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Тест 2: Проверка структуры ответа\r",
+							"pm.test(\"Структура ответа валидна\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedKeys = [\r",
+							"        \"suggestions\"\r",
+							"    ];\r",
+							"    \r",
+							"    expectedKeys.forEach(key => {\r",
+							"        pm.expect(jsonData).to.have.property(key);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Тест 3: Проверка наличия предложений\r",
+							"pm.test(\"Есть предложения\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions).to.be.an('array').that.is.not.empty; // Убедитесь, что предложения существуют и не пусты\r",
+							"});\r",
+							"\r",
+							"// Тест 4: Проверка данных первой организации\r",
+							"pm.test(\"Первая организация имеет все необходимые данные\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion).to.have.all.keys(\r",
+							"        \"value\", \"unrestricted_value\", \"data\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"// Тест 5: Проверка наличия данных о компании\r",
+							"pm.test(\"Данные о компании присутствуют\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    const companyData = firstSuggestion.data;\r",
+							"    pm.expect(companyData).to.have.all.keys(\r",
+							"        \"kpp\", \"capital\", \"invalid\", \"management\", \"branch_type\", \r",
+							"        \"source\", \"qc\", \"hid\", \"type\", \"state\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"// Тест 6: Проверка наличия имени руководителя\r",
+							"pm.test(\"Имя руководителя присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    const managementData = firstSuggestion.data.management;\r",
+							"    pm.expect(managementData).to.have.property('name').that.is.not.empty; // Убедитесь, что имя руководителя не пустое\r",
+							"});\r",
+							"\r",
+							"// Тест 7: Проверка состояния компании\r",
+							"pm.test(\"Состояние компании активно\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data.state.status).to.eql(\"ACTIVE\"); // Проверьте, что статус активен\r",
+							"});\r",
+							"\r",
+							"// Тест 8: Проверка типа организации\r",
+							"pm.test(\"Тип организации валиден\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    const validTypes = [\"LEGAL\", \"INDIVIDUAL\"]; // Укажите все допустимые типы\r",
+							"    pm.expect(validTypes).to.include(firstSuggestion.data.type); // Проверьте, что тип в списке допустимых\r",
+							"});\r",
+							"\r",
+							"// Тест 9: Проверка наличия кода организации\r",
+							"pm.test(\"Код организации присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('code').that.is.not.empty; // Убедитесь, что код не пустой\r",
+							"});\r",
+							"\r",
+							"// Тест 10: Проверка наличия даты регистрации\r",
+							"pm.test(\"Дата регистрации присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('registration_date'); // Убедитесь, что дата регистрации присутствует\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "X-Secret",
+						"value": "{{S_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"query\": \"7707083893\" }"
+				},
+				"url": {
+					"raw": "https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party?query=7707083893\n",
+					"protocol": "https",
+					"host": [
+						"suggestions",
+						"dadata",
+						"ru"
+					],
+					"path": [
+						"suggestions",
+						"api",
+						"4_1",
+						"rs",
+						"findById",
+						"party"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "7707083893\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "#7 metro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тест 1: Проверка кода статуса\r",
+							"pm.test(\"Статус кода 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Тест 2: Проверка структуры ответа\r",
+							"pm.test(\"Структура ответа валидна\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedKeys = [\r",
+							"        \"suggestions\"\r",
+							"    ];\r",
+							"    \r",
+							"    expectedKeys.forEach(key => {\r",
+							"        pm.expect(jsonData).to.have.property(key);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Тест 3: Проверка наличия предложений\r",
+							"pm.test(\"Есть предложения\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions).to.be.an('array').that.is.not.empty; // Убедитесь, что предложения существуют и не пусты\r",
+							"});\r",
+							"\r",
+							"// Тест 4: Проверка данных первой станции метро\r",
+							"pm.test(\"Первая станция имеет все необходимые данные\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion).to.have.all.keys(\r",
+							"        \"value\", \"unrestricted_value\", \"data\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"// Тест 5: Проверка наличия данных о станции метро\r",
+							"pm.test(\"Данные о станции присутствуют\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    const stationData = firstSuggestion.data;\r",
+							"\r",
+							"    // Проверка на наличие всех необходимых данных о станции метро\r",
+							"    pm.expect(stationData).to.have.all.keys(\r",
+							"        \"city_kladr_id\", \"city_fias_id\", \"city\", \"line_id\", \r",
+							"        \"line_name\", \"geo_lat\", \"geo_lon\", \"color\", \"is_closed\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"// Тест 6: Проверка наличия названия линии\r",
+							"pm.test(\"Название линии присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('line_name').that.is.not.empty; // Убедитесь, что название линии не пустое\r",
+							"});\r",
+							"\r",
+							"// Тест 7: Проверка наличия координат\r",
+							"pm.test(\"Координаты присутствуют\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.all.keys('geo_lat', 'geo_lon'); // Убедитесь, что координаты присутствуют\r",
+							"});\r",
+							"\r",
+							"// Тест 8: Проверка, что станция открыта\r",
+							"pm.test(\"Станция открыта или закрыта\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data.is_closed).to.satisfy(function(isClosed) {\r",
+							"        return isClosed === null || typeof isClosed === 'boolean'; // Убедитесь, что значение is_closed корректно\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Тест 9: Проверка наличия city_fias_id\r",
+							"pm.test(\"Идентификатор города присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('city_fias_id').that.is.not.empty; // Убедитесь, что идентификатор города не пустой\r",
+							"});\r",
+							"\r",
+							"// Тест 10: Проверка наличия city_kladr_id\r",
+							"pm.test(\"Идентификатор города по КЛАДР присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('city_kladr_id').that.is.not.empty; // Убедитесь, что идентификатор города по КЛАДР не пустой\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token e680c7936ae7914384a813eff1dbf3f9ee216d31"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "алек",
+						"operationName": "",
+						"variables": ""
+					}
+				},
+				"url": "{{baseUrl}}metro"
+			},
+			"response": []
+		},
+		{
+			"name": "#8 currency",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тест 1: Проверка кода статуса\r",
+							"pm.test(\"Статус кода 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Тест 2: Проверка структуры ответа\r",
+							"pm.test(\"Структура ответа валидна\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedKeys = [\r",
+							"        \"suggestions\"\r",
+							"    ];\r",
+							"    \r",
+							"    expectedKeys.forEach(key => {\r",
+							"        pm.expect(jsonData).to.have.property(key);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Тест 3: Проверка наличия предложений\r",
+							"pm.test(\"Есть предложения\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.suggestions).to.be.an('array').that.is.not.empty; // Убедитесь, что предложения существуют и не пусты\r",
+							"});\r",
+							"\r",
+							"// Тест 4: Проверка данных первой валюты\r",
+							"pm.test(\"Первая валюта имеет все необходимые данные\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion).to.have.all.keys(\r",
+							"        \"value\", \"unrestricted_value\", \"data\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"// Тест 5: Проверка наличия данных о валюте\r",
+							"pm.test(\"Данные о валюте присутствуют\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    const currencyData = firstSuggestion.data;\r",
+							"\r",
+							"    // Проверка на наличие всех необходимых данных о валюте\r",
+							"    pm.expect(currencyData).to.have.all.keys(\r",
+							"        \"code\", \"strcode\", \"name\", \"country\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"// Тест 6: Проверка кода валюты\r",
+							"pm.test(\"Код валюты присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('code').that.is.not.empty; // Убедитесь, что код валюты не пустой\r",
+							"});\r",
+							"\r",
+							"// Тест 7: Проверка названия валюты\r",
+							"pm.test(\"Название валюты присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('name').that.is.not.empty; // Убедитесь, что название валюты не пустое\r",
+							"});\r",
+							"\r",
+							"// Тест 8: Проверка страны валюты\r",
+							"pm.test(\"Страна валюты присутствует\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const firstSuggestion = jsonData.suggestions[0];\r",
+							"    pm.expect(firstSuggestion.data).to.have.property('country').that.is.not.empty; // Убедитесь, что страна не пустая\r",
+							"});\r",
+							"\r",
+							"// Тест 9: Проверка наличия нескольких валют\r",
+							"pm.test(\"Существуют все ожидаемые валюты\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedCurrencies = [\"Белорусский рубль\", \"Российский рубль\"]; // Укажите все ожидаемые названия валют\r",
+							"    const suggestions = jsonData.suggestions.map(s => s.value);\r",
+							"    expectedCurrencies.forEach(currency => {\r",
+							"        pm.expect(suggestions).to.include(currency); // Убедитесь, что все валюты присутствуют в ответе\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Тест 10: Проверка отсутствия недопустимых валют\r",
+							"pm.test(\"Отсутствие недопустимых валют\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const invalidCurrencies = [\"Неверная валюта\", \"Некорректная валюта\"]; // Укажите недопустимые валюты\r",
+							"    const suggestions = jsonData.suggestions.map(s => s.value);\r",
+							"    invalidCurrencies.forEach(currency => {\r",
+							"        pm.expect(suggestions).to.not.include(currency); // Убедитесь, что недопустимые валюты отсутствуют\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Ответ содержит заголовок X-XSS-Protection\", function () {\r",
+							"pm.response.to.have.header(\"X-XSS-Protection\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token e680c7936ae7914384a813eff1dbf3f9ee216d31"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "руб",
+						"operationName": "",
+						"variables": ""
+					}
+				},
+				"url": "{{baseUrl}}currency"
+			},
+			"response": []
+		},
+		{
+			"name": "#9 fms_unit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Ответ содержит заголовок X-XSS-Protection\", function () {",
+							"pm.response.to.have.header(\"X-XSS-Protection\");",
+							"});",
+							"// Тест 1: Проверка кода статуса",
+							"pm.test(\"Статус кода 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Тест 2: Проверка структуры ответа",
+							"pm.test(\"Структура ответа валидна\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const expectedKeys = [",
+							"        \"suggestions\"",
+							"    ];",
+							"    ",
+							"    expectedKeys.forEach(key => {",
+							"        pm.expect(jsonData).to.have.property(key);",
+							"    });",
+							"});",
+							"",
+							"// Тест 3: Проверка наличия предложений",
+							"pm.test(\"Есть предложения\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.suggestions).to.be.an('array').that.is.not.empty; // Убедитесь, что предложения существуют и не пусты",
+							"});",
+							"",
+							"// Тест 4: Проверка данных первой записи ФМС",
+							"pm.test(\"Первая запись имеет все необходимые данные\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion).to.have.all.keys(",
+							"        \"value\", \"unrestricted_value\", \"data\"",
+							"    );",
+							"});",
+							"",
+							"// Тест 5: Проверка наличия данных о ФМС",
+							"pm.test(\"Данные о ФМС присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    const fmsData = firstSuggestion.data;",
+							"",
+							"    // Проверка на наличие всех необходимых данных о ФМС",
+							"    pm.expect(fmsData).to.have.all.keys(",
+							"        \"code\", \"name\", \"region_code\", \"type\"",
+							"    );",
+							"});",
+							"",
+							"// Тест 6: Проверка наличия имени ФМС",
+							"pm.test(\"Имя ФМС присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('name').that.is.not.empty; // Убедитесь, что имя ФМС не пустое",
+							"});",
+							"",
+							"// Тест 7: Проверка кода ФМС",
+							"pm.test(\"Код ФМС присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('code').that.is.not.empty; // Убедитесь, что код ФМС не пустой",
+							"});",
+							"",
+							"// Тест 8: Проверка наличия типа ФМС",
+							"pm.test(\"Тип ФМС присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('type').that.is.not.empty; // Убедитесь, что тип ФМС не пустой",
+							"});",
+							"",
+							"// Тест 9: Проверка наличия региона",
+							"pm.test(\"Регион присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('region_code').that.is.not.empty; // Убедитесь, что код региона присутствует",
+							"});",
+							"",
+							"// Тест 10: Проверка наличия нескольких записей ФМС",
+							"pm.test(\"Существуют все ожидаемые записи ФМС\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const expectedFMSNames = [\"ФМС 1\", \"ФМС 2\"]; // Укажите все ожидаемые названия ФМС",
+							"    const suggestions = jsonData.suggestions.map(s => s.value);",
+							"    expectedFMSNames.forEach(name => {",
+							"        pm.expect(suggestions).to.include(name); // Убедитесь, что все ФМС присутствуют в ответе",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token e680c7936ae7914384a813eff1dbf3f9ee216d31"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "780-051",
+						"operationName": "",
+						"variables": ""
+					}
+				},
+				"url": "{{baseUrl}}fms_unit"
+			},
+			"response": []
+		},
+		{
+			"name": "#10 fts_unit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тест 1: Проверка кода статуса",
+							"pm.test(\"Статус кода 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Тест 2: Проверка структуры ответа",
+							"pm.test(\"Структура ответа валидна\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const expectedKeys = [",
+							"        \"suggestions\"",
+							"    ];",
+							"    ",
+							"    expectedKeys.forEach(key => {",
+							"        pm.expect(jsonData).to.have.property(key);",
+							"    });",
+							"});",
+							"",
+							"// Тест 3: Проверка наличия предложений",
+							"pm.test(\"Есть предложения\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.suggestions).to.be.an('array').that.is.not.empty; // Убедитесь, что предложения существуют и не пусты",
+							"});",
+							"",
+							"// Тест 4: Проверка данных первой записи ФТС",
+							"pm.test(\"Первая запись имеет все необходимые данные\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion).to.have.all.keys(",
+							"        \"value\", \"unrestricted_value\", \"data\"",
+							"    );",
+							"});",
+							"",
+							"// Тест 5: Проверка наличия данных о ФТС",
+							"pm.test(\"Данные о ФТС присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    const ftsData = firstSuggestion.data;",
+							"",
+							"    // Проверка на наличие всех необходимых данных о ФТС",
+							"    pm.expect(ftsData).to.have.all.keys(",
+							"        \"code\", \"name_short\", \"name\", \"inn\", \"okfs\", ",
+							"        \"okopf\", \"region_code\", \"type\", \"phones\", \"email\"",
+							"    );",
+							"});",
+							"",
+							"// Тест 6: Проверка наличия названия ФТС",
+							"pm.test(\"Название ФТС присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('name').that.is.not.empty; // Убедитесь, что название ФТС не пустое",
+							"});",
+							"",
+							"// Тест 7: Проверка наличия ИНН",
+							"pm.test(\"ИНН присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('inn').that.is.not.empty; // Убедитесь, что ИНН не пустой",
+							"});",
+							"",
+							"// Тест 8: Проверка наличия кодов",
+							"pm.test(\"Коды присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.all.keys('code', 'okfs', 'okopf'); // Убедитесь, что коды присутствуют",
+							"});",
+							"",
+							"// Тест 9: Проверка наличия телефонов",
+							"pm.test(\"Телефоны присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('phones').that.is.an('array'); // Убедитесь, что телефоны представлены массивом",
+							"});",
+							"",
+							"// Тест 10: Проверка наличия электронной почты",
+							"pm.test(\"Электронная почта присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('email').that.is.not.empty; // Убедитесь, что электронная почта не пустая",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token e680c7936ae7914384a813eff1dbf3f9ee216d31"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "пулково",
+						"operationName": "",
+						"variables": ""
+					}
+				},
+				"url": "{{baseUrl}}fts_unit"
+			},
+			"response": []
+		},
+		{
+			"name": "#11 Company Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тест 1: Проверка кода статуса",
+							"pm.test(\"Статус кода 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Тест 2: Проверка структуры ответа",
+							"pm.test(\"Структура ответа валидна\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const expectedKeys = [",
+							"        \"suggestions\"",
+							"    ];",
+							"    ",
+							"    expectedKeys.forEach(key => {",
+							"        pm.expect(jsonData).to.have.property(key);",
+							"    });",
+							"});",
+							"",
+							"// Тест 3: Проверка наличия предложений",
+							"pm.test(\"Есть предложения\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.suggestions).to.be.an('array').that.is.not.empty; // Убедитесь, что предложения существуют и не пусты",
+							"});",
+							"",
+							"// Тест 4: Проверка данных первой записи компании",
+							"pm.test(\"Первая запись имеет все необходимые данные\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion).to.have.all.keys(",
+							"        \"value\", \"unrestricted_value\", \"data\"",
+							"    );",
+							"});",
+							"",
+							"// Тест 5: Проверка наличия данных о компании",
+							"pm.test(\"Данные о компании присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    const companyData = firstSuggestion.data;",
+							"",
+							"    // Проверка на наличие всех необходимых данных о компании",
+							"    pm.expect(companyData).to.have.all.keys(",
+							"        \"kpp\", \"inn\", \"management\", \"state\", \"type\", ",
+							"        \"founders\", \"managers\", \"successors\", \"disqualified\"",
+							"    );",
+							"});",
+							"",
+							"// Тест 6: Проверка наличия ИНН",
+							"pm.test(\"ИНН присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('inn').that.is.not.empty; // Убедитесь, что ИНН не пустой",
+							"});",
+							"",
+							"// Тест 7: Проверка наличия данных о руководстве",
+							"pm.test(\"Данные о руководстве присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('management').that.is.not.empty; // Убедитесь, что данные о руководстве не пустые",
+							"});",
+							"",
+							"// Тест 8: Проверка состояния компании",
+							"pm.test(\"Состояние компании активно\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.state).to.have.property('status').that.equals(\"ACTIVE\"); // Проверьте, что статус активен",
+							"});",
+							"",
+							"// Тест 9: Проверка типа компании",
+							"pm.test(\"Тип компании валиден\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    const validTypes = [\"LEGAL\", \"INDIVIDUAL\"]; // Укажите допустимые типы",
+							"    pm.expect(validTypes).to.include(firstSuggestion.data.type); // Проверьте, что тип в списке допустимых",
+							"});",
+							"",
+							"// Тест 10: Проверка наличия основателей",
+							"pm.test(\"Основатели присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const firstSuggestion = jsonData.suggestions[0];",
+							"    pm.expect(firstSuggestion.data).to.have.property('founders').that.is.an('array'); // Убедитесь, что основатели представлены массивом",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token e680c7936ae7914384a813eff1dbf3f9ee216d31"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"query\": \"Рога и копыта\"\r\n}"
+				},
+				"url": "{{baseUrl}}party"
+			},
+			"response": []
+		},
+		{
+			"name": "#12 town IP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Тест 1: Проверка кода статуса",
+							"pm.test(\"Статус кода 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Тест 2: Проверка структуры ответа",
+							"pm.test(\"Структура ответа валидна\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const expectedKeys = [",
+							"        \"location\", \"data\"",
+							"    ];",
+							"    ",
+							"    expectedKeys.forEach(key => {",
+							"        pm.expect(jsonData).to.have.property(key);",
+							"    });",
+							"});",
+							"",
+							"// Тест 3: Проверка наличия данных о местоположении",
+							"pm.test(\"Данные о местоположении присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('location').that.is.an('object');",
+							"});",
+							"",
+							"// Тест 4: Проверка наличия данных по почтовому коду",
+							"pm.test(\"Почтовый код присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.location).to.have.property('postal_code').that.is.not.empty; // Убедитесь, что почтовый код не пустой",
+							"});",
+							"",
+							"// Тест 5: Проверка наличия данных о стране",
+							"pm.test(\"Страна присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('country').that.is.not.empty; // Убедитесь, что страна не пустая",
+							"});",
+							"",
+							"// Тест 6: Проверка наличия данных о регионе",
+							"pm.test(\"Регион присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('region').that.is.not.empty; // Убедитесь, что регион не пустой",
+							"});",
+							"",
+							"// Тест 7: Проверка наличия данных о городе",
+							"pm.test(\"Город присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('city').that.is.not.empty; // Убедитесь, что город не пустой",
+							"});",
+							"",
+							"// Тест 8: Проверка наличия полного названия города",
+							"pm.test(\"Полное название города присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('city_full').that.is.not.empty; // Убедитесь, что полное название города не пустое",
+							"});",
+							"",
+							"// Тест 9: Проверка наличия данных о районном центре",
+							"pm.test(\"Районный центр присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('district').that.is.not.empty; // Убедитесь, что районный центр не пустой",
+							"});",
+							"",
+							"// Тест 10: Проверка наличия данных о координатах",
+							"pm.test(\"Координаты присутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.all.keys('geo_lat', 'geo_lon'); // Убедитесь, что координаты присутствуют",
+							"});",
+							"",
+							"// Тест 11: Проверка наличия типа населенного пункта",
+							"pm.test(\"Тип населенного пункта присутствует\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data).to.have.property('type').that.is.not.empty; // Убедитесь, что тип населенного пункта не пустой",
+							"});",
+							"",
+							"// Тест 12: Проверка отсутствия недопустимых данных",
+							"pm.test(\"Недопустимые данные отсутствуют\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const invalidKeys = ['invalid', 'error', 'null'];",
+							"    invalidKeys.forEach(key => {",
+							"        pm.expect(jsonData).to.not.have.property(key); // Убедитесь, что недопустимые данные отсутствуют",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token e680c7936ae7914384a813eff1dbf3f9ee216d31"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"ip\": \"46.226.227.20\" }"
+				},
+				"url": "http://suggestions.dadata.ru/suggestions/api/4_1/rs/iplocate/address"
+			},
+			"response": []
+		}
+	]
+}
